@@ -1,0 +1,23 @@
+﻿@using Company.G02.DAL.Models
+@model Department
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+<form asp-action="Create">
+    <label asp-for="Code"></label>
+    <input asp-for="Code" class="form-control" />
+    <br />
+    <label asp-for="Name"></label>
+    <input asp-for="Name" class="form-control" />
+    <br />
+    <label asp-for="CreateAt"></label>
+    <input asp-for="CreateAt" class="form-control" />
+    <br />
+    
+    <a asp-action="Index" class="btn btn-warning">Back To List</a>
+</form>

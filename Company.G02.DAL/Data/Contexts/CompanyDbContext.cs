@@ -23,5 +23,6 @@ namespace Company.G02.DAL.Data.Contexts
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
 }
