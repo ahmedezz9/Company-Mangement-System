@@ -1,4 +1,5 @@
 ﻿using Company.G02.DAL.Models;
+using Company.G02.PL.Custom_Validations;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,6 +8,7 @@ namespace Company.G02.PL.Dtos
     public class CreateEmployeeDto
     {
         [Required(ErrorMessage ="Name is Required!")]
+        [EmployeeNameValidation]
         public string Name { get; set; }
         [Range(22,60,ErrorMessage ="Age Must be from 22 to 60")]
         public int? Age { get; set; }

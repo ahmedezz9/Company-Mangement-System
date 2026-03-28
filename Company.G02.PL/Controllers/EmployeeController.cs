@@ -37,25 +37,12 @@ namespace Company.G02.PL.Controllers
             if (ModelState.IsValid)
             {
                 var employee = _mapper.Map<Employee>(model);
-                //var employee = new Employee()
-                //{
-                //    Phone = model.Phone,
-                //    Name = model.Name,
-                //    Address = model.Address,
-                //    Age = model.Age,
 
-                //    CreateAt = model.CreateAt,
-                //    Email = model.Email,
-                //    HiringDate = model.HiringDate,
-                //    Salary = model.Salary,
-                //    IsActive = model.IsActive,
-                //    IsDeleted = model.IsDeleted,
-                //    DepartmentId=model.DepartmentId,
-
-                //};
                 await _unitOfWork.EmployeeRepository.AddAsync(employee);
                 return RedirectToAction("Index");
             }
+            ViewBag.Depts = await _unitOfWork.DepartmentRepository.GetAllAsync();
+
             return View(model);
         }
         public async Task<IActionResult> Detailes(int id)
