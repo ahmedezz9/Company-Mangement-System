@@ -1,65 +1,73 @@
-﻿using Company.G02.BLL.interfaces;
+﻿using AutoMapper;
+using Company.G02.BLL.interfaces;
 using Company.G02.BLL.Repositories;
 using Company.G02.DAL.Models;
 using Company.G02.PL.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Company.G02.PL.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public EmployeeController(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public EmployeeController(IUnitOfWork unitOfWork,IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var employees = _unitOfWork.EmployeeRepository.GetAll();
+            var employees = await _unitOfWork.EmployeeRepository.GetAllAsync();
             return View(employees);
         }
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewBag.Depts = _unitOfWork.DepartmentRepository.GetAll();
+            ViewBag.Depts = await _unitOfWork.DepartmentRepository.GetAllAsync();
            
             return View();
         }
         [HttpPost]
-        public IActionResult Create(CreateEmployeeDto model)
+        public async Task<IActionResult> Create(CreateEmployeeDto model)
         {
             if (ModelState.IsValid)
             {
-                var employee = new Employee()
-                {
-                    Phone = model.Phone,
-                    Name = model.Name,
-                    Address = model.Address,
-                    Age = model.Age,
+                var employee = _mapper.Map<Employee>(model);
+                //var employee = new Employee()
+                //{
+                //    Phone = model.Phone,
+                //    Name = model.Name,
+                //    Address = model.Address,
+                //    Age = model.Age,
 
-                    CreateAt = model.CreateAt,
-                    Email = model.Email,
-                    HiringDate = model.HiringDate,
-                    Salary = model.Salary,
-                    IsActive = model.IsActive,
-                    IsDeleted = model.IsDeleted,
-                    DepartmentId=model.DepartmentId,
+                //    CreateAt = model.CreateAt,
+                //    Email = model.Email,
+                //    HiringDate = model.HiringDate,
+                //    Salary = model.Salary,
+                //    IsActive = model.IsActive,
+                //    IsDeleted = model.IsDeleted,
+                //    DepartmentId=model.DepartmentId,
 
-                };
-                _unitOfWork.EmployeeRepository.Add(employee);
+                //};
+                await _unitOfWork.EmployeeRepository.AddAsync(employee);
                 return RedirectToAction("Index");
             }
             return View(model);
         }
-        public IActionResult Detailes(int id)
+        public async Task<IActionResult> Detailes(int id)
         {
-           var employee= _unitOfWork.EmployeeRepository.Get(id);
+           var employee= await _unitOfWork.EmployeeRepository.GetAsync(id);
             return View(employee);
         }
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var employee = _unitOfWork.EmployeeRepository.Get(id);
+            var employee =await _unitOfWork.EmployeeRepository.GetAsync(id);
+            ViewBag.Depts = await _unitOfWork.DepartmentRepository.GetAllAsync();
             return View(employee);
         }
         [HttpPost]
@@ -76,9 +84,9 @@ namespace Company.G02.PL.Controllers
             }
             return View(model);
         }
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var employee = _unitOfWork.EmployeeRepository.Get(id);
+            var employee =await _unitOfWork.EmployeeRepository.GetAsync(id);
             _unitOfWork.EmployeeRepository.Delete(employee);
             return RedirectToAction("Index");
         }

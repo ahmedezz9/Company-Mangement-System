@@ -1,14 +1,15 @@
-﻿@using Company.G02.PL.Dtos
-@model CreateEmployeeDto
+﻿@using Company.G02.DAL.Models
+@using Company.G02.PL.Dtos
+@model Employee
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
-<h1>Create Employee</h1>
+<h1>Update Employee</h1>
 <br />
 <br />
-<form asp-action="Create">
+<form asp-action="Edit">
     <label asp-for="Name"></label>
     <input asp-for="Name" class="form-control" />
     <span asp-validation-for="Name"></span>
@@ -49,12 +50,12 @@
     <span asp-validation-for="HiringDate"></span>
     <br />
     <select asp-for="DepartmentId" class="form-control">
-        @foreach(var item in ViewBag.Depts)
+        @foreach (var item in ViewBag.Depts)
         {
             <option value="@item.Id">@item.Name</option>
         }
     </select>
     <br />
-    <button type="submit" class="btn btn-primary">Create Employee</button>
+    <button type="submit" class="btn btn-primary">Edit Employee</button>
     <a asp-action="Index" class="btn btn-warning">Back To List</a>
 </form>

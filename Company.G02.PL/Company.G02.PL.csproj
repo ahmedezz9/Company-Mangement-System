@@ -10,10 +10,12 @@
     <ProjectReference Include="..\Company.G02.BLL\Company.G02.BLL.csproj" />
   </ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="16.1.1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.23" />
 	</ItemGroup>
 
 </Project>

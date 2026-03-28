@@ -1,0 +1,42 @@
+﻿@using Company.G02.DAL.Models
+@model Employee
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form asp-action="Create">
+    <label asp-for="Name"></label>
+    <input asp-for="Name" class="form-control" readonly/>
+    <br />
+    <label asp-for="Age"></label>
+    <input asp-for="Age" class="form-control" readonly />
+    <br />
+    <label asp-for="Email"></label>
+    <input asp-for="Email" class="form-control" readonly />
+    <br />
+    <label asp-for="Address"></label>
+    <input asp-for="Address" class="form-control" readonly />
+    <br />
+    <label asp-for="Phone"></label>
+    <input asp-for="Phone" class="form-control" readonly />
+    <br />
+    <label asp-for="Salary"></label>
+    <input asp-for="Salary" class="form-control" readonly />
+    <br />
+    <label asp-for="IsActive"></label>
+    <input type="checkbox" asp-for="IsActive" disabled />
+    <br />
+    <label asp-for="IsDeleted"></label>
+    <input type="checkbox" asp-for="IsDeleted" disabled />
+    <br>
+
+    <label asp-for="CreateAt"></label>
+    <input asp-for="CreateAt" class="form-control" readonly/>
+    <br />
+    <label asp-for="HiringDate"></label>
+    <input asp-for="HiringDate" class="form-control" readonly />
+    <br />
+    
+    <a asp-action="Index" class="btn btn-warning">Back To Employee List</a>
+</form>

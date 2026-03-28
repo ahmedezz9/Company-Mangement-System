@@ -2,12 +2,15 @@
 using Company.G02.BLL.Repositories;
 using Company.G02.DAL.Models;
 using Company.G02.PL.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Identity.Client;
+using System.Threading.Tasks;
 
 namespace Company.G02.PL.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         private readonly IDepartmentRepository departmentRepository;
@@ -15,9 +18,9 @@ namespace Company.G02.PL.Controllers
         {
             departmentRepository = _departmentRepository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-           var departments= departmentRepository.GetAll();
+           var departments= await departmentRepository.GetAllAsync();
             return View(departments);
         }
         [HttpGet]
@@ -26,7 +29,7 @@ namespace Company.G02.PL.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(CreateDepartmentDto model)
+        public async Task<IActionResult> Create(CreateDepartmentDto model)
         {
 
             if (ModelState.IsValid)
@@ -37,23 +40,23 @@ namespace Company.G02.PL.Controllers
                     CreateAt = model.CreateAt,
                     Code = model.Code
                 };
-                departmentRepository.Add(dept);
+                await departmentRepository.AddAsync(dept);
                 return RedirectToAction("Index");
             }
             return View(model);
 
         }
 
-        public IActionResult Detailes(int id)
+        public async Task<IActionResult> Detailes(int id)
         {
-           var department= departmentRepository.Get(id);
+           var department= await departmentRepository.GetAsync(id);
 
             return View(department);
         }
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var department = departmentRepository.Get(id);
+            var department = await departmentRepository.GetAsync(id);
 
 
             var updatedeptdto = new UpdateDepartementDto()
@@ -80,9 +83,9 @@ namespace Company.G02.PL.Controllers
             }
             return View(model);
         }
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var department = departmentRepository.Get(id);
+            var department =await  departmentRepository.GetAsync(id);
             departmentRepository.Delete(department);
             return RedirectToAction("Index");
         }
