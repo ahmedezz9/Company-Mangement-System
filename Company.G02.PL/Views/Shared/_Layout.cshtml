@@ -10,35 +10,92 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-dark mb-4 shadow-sm" style="background:#0f2a4a;">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Company Management System</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+
+                <!-- Brand -->
+                <a class="navbar-brand fw-semibold d-flex align-items-center gap-2"
+                   asp-area="" asp-controller="Home" asp-action="Index">
+                    <span class="bg-primary rounded-2 d-flex align-items-center justify-content-center"
+                          style="width:32px; height:32px; font-size:16px;">🏢</span>
+                    Company<span class="text-primary">.G02</span>
+                </a>
+
+                <!-- Toggler -->
+                <button class="navbar-toggler border-0" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarContent"
+                        aria-controls="navbarContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Department" asp-action="Index">Departments</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="Index">Employees</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light btn btn-danger" asp-area="" asp-controller="Account" asp-action="SignOut">Sign Out</a>
-                        </li>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+
+                    <!-- Left Links -->
+                    <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white-50 px-3 rounded-2"
+                                   asp-area="" asp-controller="Home" asp-action="Index">
+                                    Home
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white-50 px-3 rounded-2"
+                                   asp-area="" asp-controller="Department" asp-action="Index">
+                                    Departments
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white-50 px-3 rounded-2"
+                                   asp-area="" asp-controller="Employee" asp-action="Index">
+                                    Employees
+                                </a>
+                            </li>
+                        }
                     </ul>
+
+                    <!-- Right Side -->
+                    <ul class="navbar-nav ms-auto mb-2 mb-sm-0 align-items-center gap-2">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <span class="navbar-text text-white-50 small">
+                                    👤 @User.Identity.Name
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-danger btn-sm"
+                                   asp-area="" asp-controller="Account" asp-action="SignOut">
+                                    Sign Out
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-outline-light btn-sm"
+                                   asp-area="" asp-controller="Account" asp-action="SignIn">
+                                    Sign In
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-primary btn-sm"
+                                   asp-area="" asp-controller="Account" asp-action="SignUp">
+                                    Sign Up
+                                </a>
+                            </li>
+                        }
+                    </ul>
+
                 </div>
             </div>
         </nav>
     </header>
+    
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
