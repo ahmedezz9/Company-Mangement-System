@@ -1,11 +1,3 @@
-using Company.G02.BLL.interfaces;
-using Company.G02.BLL.Repositories;
-using Company.G02.DAL.Data.Contexts;
-using Company.G02.DAL.Models;
-using Company.G02.PL.Mapping;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
 namespace Company.G02.PL
 {
     public class Program

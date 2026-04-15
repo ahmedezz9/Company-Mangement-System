@@ -1,0 +1,11 @@
+﻿global using Company.G02.DAL.Data.Configuratoins;
+global using Company.G02.DAL.Models;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Identity.Client;
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Reflection;
+global using System.Text;
+global using System.Threading.Tasks;
